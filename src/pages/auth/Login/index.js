@@ -90,14 +90,14 @@ const Login = () => {
         isLoading={isLoading}
       />
       <div className={styles.footerContainer}>
-        <div className={styles.textContainer}>
+        {/* <div className={styles.textContainer}>
           New user?{' '}
           <Button
             label="Sign up"
             className={styles.linkButton}
             onClick={() => history.push(path.signup)}
           />
-        </div>
+        </div> */}
         <div className={styles.textContainer}>
           Forget{' '}
           <Button

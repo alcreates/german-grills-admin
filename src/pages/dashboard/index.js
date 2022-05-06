@@ -8,12 +8,13 @@ import {
 } from 'react-router-dom'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
+import Signup from 'pages/auth/Signup'
 import NavBar from './NavBar'
+import CustomerRegistration from './CustomerRegistration'
+import CustomerList from './CustomerList'
 import styles from './dashboard.module.scss'
 
 const Dashboard = () => {
-  const Clients = () => <div> Clients </div>
-  const SignUp = () => <div>Sign Up</div>
   const match = useRouteMatch()
   return (
     <div className={styles.root}>
@@ -23,23 +24,29 @@ const Dashboard = () => {
           <ProSidebar>
             <Menu iconShape="square">
               <MenuItem>
-                <Link to={`${match.url}/clients`}>Dashboard </Link>
+                <Link to={`${match.url}/clients`}>View Customers </Link>
               </MenuItem>
 
               <MenuItem>
-                Component 1
+                Admin Registration
                 <Link to={`${match.url}/signup`} />
               </MenuItem>
-              <MenuItem>Component 2</MenuItem>
+              <MenuItem>
+                <Link to={`${match.url}/customerRegistration`} />
+                Customer Registration
+              </MenuItem>
             </Menu>
           </ProSidebar>
-          <div>
+          <div className={styles.view}>
             <Switch>
               <Route exact path={`${match.path}/clients`}>
-                <Clients />
+                <CustomerList />
               </Route>
               <Route exact path={`${match.path}/signup`}>
-                <SignUp />
+                <Signup />
+              </Route>
+              <Route exact path={`${match.path}/customerRegistration`}>
+                <CustomerRegistration />
               </Route>
             </Switch>
           </div>

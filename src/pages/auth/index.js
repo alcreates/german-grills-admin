@@ -16,11 +16,6 @@ const Auth = () => (
           <Login />
         </Route>
 
-        {/*
-        Move this to add new client in the dashboard
-        <Route path={path.signup}>
-          <Signup />
-        </Route> */}
         <Route path={path.resetPassword}>
           <ResetPassword />
         </Route>

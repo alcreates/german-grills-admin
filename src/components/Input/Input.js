@@ -28,6 +28,7 @@ const Input = ({
         onKeyDown={onKeyDown}
         placeholder={placeholder}
         maxLength={maxLength}
+        autoComplete="false"
         className={`input ${
           error ? 'form-control is-invalid' : 'form-control'
         }`}

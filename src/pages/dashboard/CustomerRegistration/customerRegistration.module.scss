@@ -3,7 +3,7 @@
 .root {
   display: flex;
   flex-direction: column;
-  width: 45%;
+  width: 60%;
   height: 80%;
 }
 
@@ -30,21 +30,6 @@
   width: 100%;
 }
 
-.regInput {
-  color: white;
-
-  input {
-    background-color: $dark-gray;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-
-  input:focus {
-    background-color: $dark-gray;
-  }
-}
-
 .textContainer {
   display: flex;
   align-items: center;
@@ -54,4 +39,28 @@
   margin-left: rem(4);
   text-decoration: underline;
   color: $purple;
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.signUpInput {
+  color: white;
+  width: 100%;
+  padding-right: 40px;
+
+  input {
+    background-color: $dark-gray;
+    color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  input:focus {
+    background-color: $dark-gray;
+    color: white;
+  }
 }

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import Input from 'components/Input'
 import Button from 'components/Button'
 import ErrorBox from 'components/ErrorBox'
@@ -7,7 +6,6 @@ import ConfirmEmail from 'pageComponents/ConfirmEmail'
 import validate, { tests } from 'utils/validate'
 import { useDispatch } from 'react-redux'
 import { actions } from 'slices/app.slice'
-import { path } from 'utils/const'
 import styles from './signup.module.scss'
 
 const customTests = {
@@ -19,7 +17,6 @@ const customTests = {
 }
 
 const Signup = () => {
-  const history = useHistory()
   const dispatch = useDispatch()
 
   // ------------------------------------
@@ -77,8 +74,9 @@ const Signup = () => {
   return (
     <div className={styles.root}>
       {resErr && <ErrorBox>{resErr}</ErrorBox>}
-      <h2 className={styles.title}>Signup</h2>
+      <h2 className={styles.title}>Admin Registration</h2>
       <Input
+        className={styles.regInput}
         label="Full Name"
         name="fullName"
         placeholder="John Doe"
@@ -87,6 +85,7 @@ const Signup = () => {
         error={error.fullName}
       />
       <Input
+        className={styles.regInput}
         label="Email"
         name="email"
         placeholder="email@example.com"
@@ -95,6 +94,7 @@ const Signup = () => {
         error={error.email}
       />
       <Input
+        className={styles.regInput}
         type="password"
         label="Password"
         name="password"
@@ -104,6 +104,7 @@ const Signup = () => {
         error={error.password}
       />
       <Input
+        className={styles.regInput}
         type="password"
         label="Confirm Password"
         name="confirmPassword"
@@ -115,36 +116,16 @@ const Signup = () => {
       <br />
       <Button
         label="Signup"
-        className={`btn-black-fill ${styles.submitButton}`}
+        className={`btn-purple-fill ${styles.submitButton}`}
         onClick={handleSubmit}
         isLoading={isLoading}
       />
-      <div className={styles.footerContainer}>
-        <div className={styles.textContainer}>
-          You have account?{' '}
-          <Button
-            label="Log in"
-            className={styles.linkButton}
-            onClick={() => history.push(path.login)}
-          />
-        </div>
-        <div className={styles.textContainer}>
-          Forget{' '}
-          <Button
-            label="Password"
-            className={styles.linkButton}
-            onClick={() => history.push(path.resetPassword)}
-          />
-          ?
-        </div>
-      </div>
       <ConfirmEmail
         email={input.email}
         isOpen={isOpen}
         toggle={() => setOpen((prev) => !prev)}
         onSubmit={() => {
           setOpen((prev) => !prev)
-          history.push(path.login)
         }}
       />
     </div>

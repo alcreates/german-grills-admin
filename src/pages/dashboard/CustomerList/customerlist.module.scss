@@ -1,10 +1,12 @@
 @import '../../../theme/core.scss';
 
 .root {
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  height: 80%;
+  padding-top: 50px;
+}
+
+.wrapper {
+  height: 100%;
+  width: 100%;
 }
 
 .title {
@@ -14,7 +16,8 @@
 
   color: $light-purple;
   font-size: rem(24);
-  margin-bottom: rem(40);
+  margin-top: rem(10);
+  margin-bottom: rem(10);
 }
 
 .submitButton {
@@ -30,21 +33,6 @@
   width: 100%;
 }
 
-.regInput {
-  color: white;
-
-  input {
-    background-color: $dark-gray;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-  }
-
-  input:focus {
-    background-color: $dark-gray;
-  }
-}
-
 .textContainer {
   display: flex;
   align-items: center;
@@ -54,4 +42,27 @@
   margin-left: rem(4);
   text-decoration: underline;
   color: $purple;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+th {
+  color: white;
+  border-bottom: solid;
+  padding-right: 40px;
+  min-width: 200px;
+}
+
+td {
+  color: white;
+  min-width: 200px;
+}
+
+.searchInput input {
+  background-color: $dark-gray;
+  color: white;
+  width: 500px;
 }

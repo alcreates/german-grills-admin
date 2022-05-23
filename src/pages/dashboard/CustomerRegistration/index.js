@@ -4,15 +4,20 @@ import Button from 'components/Button'
 import { firestore } from 'utils/firebase'
 import styles from './customerRegistration.module.scss'
 
+// const csvData = require('./madison.json');
+
 const CustomerRegistration = () => {
   const [input, setInput] = useState({
-    firstName: '',
-    lastName: '',
-    streetName: '',
-    cityName: '',
-    stateName: '',
-    email: '',
-    phone: '',
+    CustomerName: '',
+    SteetAddress: '',
+    City: '',
+    State: '',
+    Email: '',
+    Phone: '',
+    Zipcode: '',
+    LastServiceDate: '',
+    Payment: '',
+    Notes: '',
   })
   const [error, setError] = useState({})
 
@@ -29,95 +34,117 @@ const CustomerRegistration = () => {
       .collection('customers')
       .add(input)
       .then(() => {
-        console.log('document created')
         setInput({
-          firstName: '',
-          lastName: '',
-          streetName: '',
-          cityName: '',
-          stateName: '',
-          email: '',
-          phone: '',
+          CustomerName: '',
+          SteetAddress: '',
+          City: '',
+          State: '',
+          Email: '',
+          Phone: '',
+          Zipcode: '',
+          LastServiceDate: '',
+          Payment: '',
+          Notes: '',
         })
       })
       .catch((e) => {
         console.log(e)
       })
   }
+  // const handleImport = async () => {
+  //     // csvData.forEach(customer => {
+  //     //     firestore.collection('customers').add(customer).catch((e) => console.log(e));
+  //     // })
+  // }
 
   return (
     <div className={styles.root}>
       <h2 className={styles.title}>Customer Registration</h2>
+      {/* <Button
+                label="Import Data"
+                className={`btn-purple-fill ${styles.submitButton}`}
+                onClick={handleImport}
+            /> */}
       <div className={styles.row}>
         <Input
-          label="First Name"
+          label="Customer Name"
           className={styles.signUpInput}
-          name="firstName"
-          placeholder="John"
-          value={input.firstName}
+          name="CustomerName"
+          placeholder="Claudia Pinzon"
+          value={input.CustomerName}
           onChange={handleOnChange}
-          error={error.firstName}
-        />
-
-        <Input
-          className={styles.signUpInput}
-          label="Last Name"
-          name="lastName"
-          placeholder="Smith"
-          value={input.lastName}
-          onChange={handleOnChange}
-          error={error.lastName}
+          error={error.CustomerName}
         />
       </div>
       <div className={styles.row}>
         <Input
           className={styles.signUpInput}
           label="Street"
-          name="streetName"
+          name="StreetAddress"
           placeholder="21 lackwanna pl"
-          value={input.streetName}
+          value={input.StreetAddress}
           onChange={handleOnChange}
-          error={error.streetName}
+          error={error.StreetAddress}
         />
       </div>
       <div className={styles.row}>
         <Input
           className={styles.signUpInput}
-          label="city"
-          name="cityName"
+          label="City"
+          name="City"
           placeholder="Bloomfield"
-          value={input.cityName}
+          value={input.City}
           onChange={handleOnChange}
-          error={error.cityName}
+          error={error.City}
         />
         <Input
           className={styles.signUpInput}
-          label="state"
-          name="stateName"
+          label="State"
+          name="State"
           placeholder="NJ"
-          value={input.stateName}
+          value={input.State}
           onChange={handleOnChange}
-          error={error.stateName}
+          error={error.State}
+        />
+        <Input
+          className={styles.signUpInput}
+          label="Zipcode"
+          name="Zipcode"
+          placeholder="07960"
+          value={input.Zipcode}
+          onChange={handleOnChange}
+          error={error.Zipcode}
         />
       </div>
       <div className={styles.row}>
         <Input
           className={styles.signUpInput}
           label="Email"
-          name="email"
+          name="Email"
           placeholder="email@example.com"
-          value={input.email}
+          value={input.Email}
           onChange={handleOnChange}
-          error={error.email}
+          error={error.Email}
         />
         <Input
           className={styles.signUpInput}
           label="Phone"
-          name="phone"
+          name="Phone"
           placeholder="973-449-0532"
-          value={input.phone}
+          value={input.Phone}
           onChange={handleOnChange}
-          error={error.phone}
+          error={error.Phone}
+        />
+      </div>
+      <div className={styles.row}>
+        <Input
+          className={styles.signUpInput}
+          label="Notes"
+          name="Notes"
+          placeholder="What should we know?"
+          value={input.Notes}
+          onChange={handleOnChange}
+          error={error.Notes}
         />
       </div>
 

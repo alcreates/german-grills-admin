@@ -1,0 +1,50 @@
+[
+  {
+    "CustomerName": "",
+    "StreetAddress": "33 Lynwood Rd",
+    "Phone": "7325487336",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Edison",
+    "Zipcode": "08817",
+    "State": "NJ"
+  },
+  {
+    "CustomerName": "Bonie",
+    "StreetAddress": "6 Moraine Rd",
+    "Phone": "7324940891",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Edison",
+    "Zipcode": "08817",
+    "State": "NJ"
+  },
+  {
+    "CustomerName": "",
+    "StreetAddress": "74 Stephenville Pwy",
+    "Phone": "7327426886",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Edison",
+    "Zipcode": "08817",
+    "State": "NJ"
+  },
+  {
+    "CustomerName": "",
+    "StreetAddress": "93 George AV",
+    "Phone": "7322395879",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Edison",
+    "Zipcode": "08817",
+    "State": "NJ"
+  }
+]

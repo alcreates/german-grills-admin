@@ -35,6 +35,7 @@
 
   input {
     background-color: $dark-gray;
+    color: white;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -42,6 +43,7 @@
 
   input:focus {
     background-color: $dark-gray;
+    color: white;
   }
 }
 

@@ -1,0 +1,62 @@
+[
+  {
+    "CustomerName": "",
+    "StreetAddress": "22 Liberty CT",
+    "Phone": "2014475499",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fairfield",
+    "State": "NJ",
+    "Zipcode": "07004"
+  },
+  {
+    "CustomerName": "",
+    "StreetAddress": "44 Glenroy South RD",
+    "Phone": "9733323044",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fairfield",
+    "State": "NJ",
+    "Zipcode": "07004"
+  },
+  {
+    "CustomerName": "",
+    "StreetAddress": "76 Schindler Way",
+    "Phone": "9734643968",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fairfield",
+    "State": "NJ",
+    "Zipcode": "07004"
+  },
+  {
+    "CustomerName": "Chris",
+    "StreetAddress": "26 Birchtree Dr",
+    "Phone": "9734174437",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fairfield",
+    "State": "NJ",
+    "Zipcode": "07004"
+  },
+  {
+    "CustomerName": "Dom",
+    "StreetAddress": "14 Caryn Place",
+    "Phone": "(973) 768 7125",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fairfield",
+    "State": "NJ",
+    "Zipcode": "07004"
+  }
+]

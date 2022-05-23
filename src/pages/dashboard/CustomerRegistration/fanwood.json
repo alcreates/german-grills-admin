@@ -1,0 +1,50 @@
+[
+  {
+    "CustomerName": "",
+    "StreetAddress": "39 Paterson RD",
+    "Phone": "9083133794",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fanwood",
+    "State": "NJ",
+    "Zipcode": "07023"
+  },
+  {
+    "CustomerName": "Catherine",
+    "StreetAddress": "81 Waldon RD",
+    "Phone": "9088215493",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fanwood",
+    "State": "NJ",
+    "Zipcode": "07023"
+  },
+  {
+    "CustomerName": "Andrew",
+    "StreetAddress": "26 Sahdy Lane ",
+    "Phone": "2017044573",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fanwood",
+    "State": "NJ",
+    "Zipcode": "07023"
+  },
+  {
+    "CustomerName": "",
+    "StreetAddress": "112 Vinton Circle ",
+    "Phone": "9089630976",
+    "LastServiceDate": "",
+    "Payment": "",
+    "Email": "N/A",
+    "Notes": "",
+    "City": "Fanwood",
+    "State": "NJ",
+    "Zipcode": "07023"
+  }
+]

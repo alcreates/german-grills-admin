@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
-import Signup from 'pages/auth/Signup'
 import NavBar from './NavBar'
 import CustomerRegistration from './CustomerRegistration'
 import CustomerList from './CustomerList'
@@ -24,12 +23,7 @@ const Dashboard = () => {
           <ProSidebar>
             <Menu iconShape="square">
               <MenuItem>
-                <Link to={`${match.url}/clients`}>View Customers </Link>
-              </MenuItem>
-
-              <MenuItem>
-                Admin Registration
-                <Link to={`${match.url}/signup`} />
+                <Link to={`${match.url}`}>View Customers </Link>
               </MenuItem>
               <MenuItem>
                 <Link to={`${match.url}/customerRegistration`} />
@@ -39,13 +33,10 @@ const Dashboard = () => {
           </ProSidebar>
           <div className={styles.view}>
             <Switch>
-              <Route exact path={`${match.path}/clients`}>
+              <Route exact path={`${match.path}/`}>
                 <CustomerList />
               </Route>
-              <Route exact path={`${match.path}/signup`}>
-                <Signup />
-              </Route>
-              <Route exact path={`${match.path}/customerRegistration`}>
+              <Route path={`${match.path}/customerRegistration`}>
                 <CustomerRegistration />
               </Route>
             </Switch>

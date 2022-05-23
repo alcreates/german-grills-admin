@@ -1,12 +1,10 @@
-import { useState } from 'react'
+import { useState, useDispatch } from 'react'
 import Input from 'components/Input'
 import Button from 'components/Button'
 import ErrorBox from 'components/ErrorBox'
-import ConfirmEmail from 'pageComponents/ConfirmEmail'
 import validate, { tests } from 'utils/validate'
-import { useDispatch } from 'react-redux'
 import { actions } from 'slices/app.slice'
-import styles from './signup.module.scss'
+import styles from './adminregistration.modules.scss'
 
 const customTests = {
   ...tests,
@@ -16,7 +14,7 @@ const customTests = {
   },
 }
 
-const Signup = () => {
+const AdminRegistration = () => {
   const dispatch = useDispatch()
 
   // ------------------------------------
@@ -42,7 +40,8 @@ const Signup = () => {
     setResError('')
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     // validation
     const result = validate(input, customTests)
     setError(result.errors)
@@ -115,24 +114,17 @@ const Signup = () => {
       />
       <br />
       <Button
-        label="Signup"
+        label="Register"
         className={`btn-purple-fill ${styles.submitButton}`}
         onClick={handleSubmit}
         isLoading={isLoading}
       />
-      <ConfirmEmail
-        email={input.email}
-        isOpen={isOpen}
-        toggle={() => setOpen((prev) => !prev)}
-        onSubmit={() => {
-          setOpen((prev) => !prev)
-        }}
-      />
+      {isOpen && <div>Admin Registered</div>}
     </div>
   )
 }
 
-Signup.propTypes = {}
-Signup.defaultProps = {}
+AdminRegistration.propTypes = {}
+AdminRegistration.defaultProps = {}
 
-export default Signup
+export default AdminRegistration

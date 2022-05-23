@@ -2,6 +2,24 @@
 
 .root {
   padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rootModule {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.signUpInput {
+  width: 100%;
+  padding-right: 40px;
 }
 
 .wrapper {
@@ -14,6 +32,7 @@
     height: rem(60);
   }
 
+  width: 200px;
   color: $light-purple;
   font-size: rem(24);
   margin-top: rem(10);
@@ -52,17 +71,32 @@ table {
 th {
   color: white;
   border-bottom: solid;
-  padding-right: 40px;
-  min-width: 200px;
+  width: 140px;
 }
 
 td {
   color: white;
-  min-width: 200px;
+  width: 140px;
+}
+
+tr {
+  color: white;
+  border-bottom: solid;
+  height: 60px;
+}
+
+.searchWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 .searchInput input {
   background-color: $dark-gray;
   color: white;
   width: 500px;
+}
+
+.count {
+  color: white;
 }

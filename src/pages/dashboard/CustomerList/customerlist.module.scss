@@ -27,6 +27,11 @@
   width: 100%;
 }
 
+.close {
+  display: flex;
+  justify-content: right;
+}
+
 .title {
   .submitButton {
     height: rem(60);

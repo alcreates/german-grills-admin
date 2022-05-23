@@ -23,6 +23,8 @@ const CustomerList = () => {
     Payment: '',
     Notes: '',
   })
+  const [inputUpdated, setInputUpdated] = useState({})
+  const [successMessage, setMessage] = useState(false)
   const [error, setError] = useState({})
   const KEYS_TO_FILTERS = [
     'CustomerName',
@@ -52,7 +54,7 @@ const CustomerList = () => {
       .catch((e) => {
         console.info('Error getting document:', e)
       })
-  }, [])
+  }, [inputUpdated])
   const searchTermUpdate = (term) => {
     setSearchTerm(term)
   }
@@ -74,7 +76,20 @@ const CustomerList = () => {
   const handleSubmit = () => {
     const customerRef = firestore.collection('customers').doc(input.id)
     customerRef.update(input).then(() => {
-      console.log('updated!')
+      setInputUpdated(input)
+      setMessage(true)
+      setInput({
+        CustomerName: '',
+        SteetAddress: '',
+        City: '',
+        State: '',
+        Email: '',
+        Phone: '',
+        Zipcode: '',
+        LastServiceDate: '',
+        Payment: '',
+        Notes: '',
+      })
     })
   }
   return (
@@ -130,6 +145,9 @@ const CustomerList = () => {
           centered
         >
           <div className={styles.rootModule}>
+            {/* <div className={styles.close}>
+                            <span toggle={() => setOpen((prev) => !prev)}>&#x2716;</span>
+                        </div> */}
             <h2 className={styles.title}>Customer</h2>
             <div className={styles.row}>
               <Input
@@ -213,7 +231,7 @@ const CustomerList = () => {
                 error={error.Notes}
               />
             </div>
-
+            {successMessage && <p>Succesful Update!</p>}
             <br />
             <Button
               label="Update"

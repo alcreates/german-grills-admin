@@ -4,8 +4,6 @@ import Button from 'components/Button'
 import { firestore } from 'utils/firebase'
 import styles from './customerRegistration.module.scss'
 
-// const csvData = require('./madison.json');
-
 const CustomerRegistration = ({ setInputUpdated }) => {
   const [input, setInput] = useState({
     CustomerName: '',
@@ -52,20 +50,10 @@ const CustomerRegistration = ({ setInputUpdated }) => {
         console.log(e)
       })
   }
-  // const handleImport = async () => {
-  //     // csvData.forEach(customer => {
-  //     //     firestore.collection('customers').add(customer).catch((e) => console.log(e));
-  //     // })
-  // }
 
   return (
     <div className={styles.root}>
       <h2 className={styles.title}>Customer Registration</h2>
-      {/* <Button
-                label="Import Data"
-                className={`btn-purple-fill ${styles.submitButton}`}
-                onClick={handleImport}
-            /> */}
       <div className={styles.row}>
         <Input
           label="Customer Name"

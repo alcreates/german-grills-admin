@@ -71,7 +71,9 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
   }
   return (
     <div className={styles.wrapper}>
-      <div className={styles.count}>Count :{count}</div>
+      <div className={styles.count}>
+        Count :{filteredCustomers ? filteredCustomers.length : count}
+      </div>
       <div className={styles.root}>
         <div className={styles.searchWrapper}>
           <SearchInput

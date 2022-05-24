@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { firestore } from 'utils/firebase'
 import SearchInput, { createFilter } from 'react-search-input'
 import Button from 'components/Button'
@@ -6,10 +6,8 @@ import Input from 'components/Input'
 import Modal from 'components/Modal'
 import styles from './customerlist.module.scss'
 
-const CustomerList = () => {
-  const [customers, setCustomers] = useState([])
+const CustomerList = ({ customersList, setInputUpdated, count }) => {
   const [searchTerm, setSearchTerm] = useState('')
-  const [count, setCount] = useState([])
   const [isOpen, setOpen] = useState(false)
   const [input, setInput] = useState({
     CustomerName: '',
@@ -23,8 +21,8 @@ const CustomerList = () => {
     Payment: '',
     Notes: '',
   })
-  const [inputUpdated, setInputUpdated] = useState({})
-  const [successMessage, setMessage] = useState(false)
+
+  const [successMessage, setSuccessMessage] = useState(false)
   const [error, setError] = useState({})
   const KEYS_TO_FILTERS = [
     'CustomerName',
@@ -33,36 +31,15 @@ const CustomerList = () => {
     'City',
     'Phone',
   ]
-  useEffect(() => {
-    const docRef = firestore.collection('customers')
 
-    docRef
-      .get()
-      .then((querySnapshot) => {
-        const customersList = []
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          customersList.push({ ...doc.data(), id: doc.id })
-        })
-        return customersList
-      })
-      .then((res) => {
-        console.log(res.length)
-        setCustomers(res)
-        setCount(res.length)
-      })
-      .catch((e) => {
-        console.info('Error getting document:', e)
-      })
-  }, [inputUpdated])
   const searchTermUpdate = (term) => {
     setSearchTerm(term)
   }
-  const filteredCustomers = customers.filter(
+  const filteredCustomers = customersList.filter(
     createFilter(searchTerm, KEYS_TO_FILTERS),
   )
   const handleEdit = (id) => {
-    customers.forEach((c) => {
+    customersList.forEach((c) => {
       if (c.id === id) {
         setInput(c)
       }
@@ -77,7 +54,7 @@ const CustomerList = () => {
     const customerRef = firestore.collection('customers').doc(input.id)
     customerRef.update(input).then(() => {
       setInputUpdated(input)
-      setMessage(true)
+      setSuccessMessage(true)
       setInput({
         CustomerName: '',
         SteetAddress: '',
@@ -145,9 +122,12 @@ const CustomerList = () => {
           centered
         >
           <div className={styles.rootModule}>
-            {/* <div className={styles.close}>
-                            <span toggle={() => setOpen((prev) => !prev)}>&#x2716;</span>
-                        </div> */}
+            <div className={styles.close}>
+              <Button
+                label="&#x2716;"
+                onClick={() => setOpen((prev) => !prev)}
+              />
+            </div>
             <h2 className={styles.title}>Customer</h2>
             <div className={styles.row}>
               <Input

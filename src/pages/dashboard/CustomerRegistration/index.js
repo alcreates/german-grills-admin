@@ -6,7 +6,7 @@ import styles from './customerRegistration.module.scss'
 
 // const csvData = require('./madison.json');
 
-const CustomerRegistration = () => {
+const CustomerRegistration = ({ setInputUpdated }) => {
   const [input, setInput] = useState({
     CustomerName: '',
     SteetAddress: '',
@@ -46,6 +46,7 @@ const CustomerRegistration = () => {
           Payment: '',
           Notes: '',
         })
+        setInputUpdated(input)
       })
       .catch((e) => {
         console.log(e)

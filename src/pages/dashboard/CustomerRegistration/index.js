@@ -27,7 +27,6 @@ const CustomerRegistration = ({ setInputUpdated }) => {
     setError((prev) => ({ ...prev, [name]: '' }))
   }
   const handleSubmit = async () => {
-    console.log('submit')
     firestore
       .collection('customers')
       .add(input)

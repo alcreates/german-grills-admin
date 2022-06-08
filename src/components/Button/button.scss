@@ -19,3 +19,7 @@
 .btn-purple-outline {
   @include button-outline($purple);
 }
+
+.btn-pink-outline {
+  @include button-outline($pink);
+}

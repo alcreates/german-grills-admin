@@ -8,10 +8,14 @@ import {
 } from 'react-router-dom'
 import { firestore } from 'utils/firebase'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
+import { useDispatch } from 'react-redux'
+import { actions } from 'slices/app.slice'
 import 'react-pro-sidebar/dist/css/styles.css'
 import NavBar from './NavBar'
 import CustomerRegistration from './CustomerRegistration'
 import CustomerList from './CustomerList'
+import Calendar from './Calendar'
+import PendingList from './PendingList'
 import styles from './dashboard.module.scss'
 
 const Dashboard = () => {
@@ -19,23 +23,28 @@ const Dashboard = () => {
   const [customers, setCustomers] = useState([])
   const [inputUpdated, setInputUpdated] = useState({})
   const [count, setCount] = useState([])
+  const dispatch = useDispatch()
   useEffect(() => {
     const docRef = firestore.collection('customers')
 
     docRef
       .get()
-      .then((querySnapshot) => {
-        const customersList = []
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          customersList.push({ ...doc.data(), id: doc.id })
-        })
-        return customersList
-      })
+      .then((querySnapshot) =>
+        querySnapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id }
+        }),
+      )
       .then((res) => {
-        console.log(res.length)
-        setCustomers(res)
-        setCount(res.length)
+        const cus = res.map((d) => {
+          let LastServiceDate = 'N/A'
+          if (d.LastServiceDate && d.LastServiceDate.toDate) {
+            LastServiceDate = d.LastServiceDate.toDate().toString()
+          }
+          return { ...d, LastServiceDate }
+        })
+        setCustomers(cus)
+        dispatch(actions.setCustomers(cus))
+        setCount(cus.length)
       })
       .catch((e) => {
         console.info('Error getting document:', e)
@@ -55,6 +64,14 @@ const Dashboard = () => {
                 <Link to={`${match.url}/customerRegistration`} />
                 Customer Registration
               </MenuItem>
+              <MenuItem>
+                <Link to={`${match.url}/pending`} />
+                Pending List
+              </MenuItem>
+              <MenuItem>
+                <Link to={`${match.url}/calendar`} />
+                Calendar
+              </MenuItem>
             </Menu>
           </ProSidebar>
           <div className={styles.view}>
@@ -68,6 +85,12 @@ const Dashboard = () => {
               </Route>
               <Route path={`${match.path}/customerRegistration`}>
                 <CustomerRegistration setInputUpdated={setInputUpdated} />
+              </Route>
+              <Route path={`${match.path}/calendar`}>
+                <Calendar />
+              </Route>
+              <Route path={`${match.path}/pending`}>
+                <PendingList customersList={customers} count={count} />
               </Route>
             </Switch>
           </div>

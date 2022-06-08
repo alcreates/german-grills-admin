@@ -1,0 +1,29 @@
+.root {
+  height: 300px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.datePickerWrapper {
+  display: flex;
+  justify-content: center;
+  width: 35%;
+}
+
+.submitWrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.react-datepicker-wrapper {
+  width: 70% !important;
+}
+
+.submit {
+  position: absolute;
+  top: 205px;
+  width: 100%;
+}

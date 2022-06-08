@@ -4,11 +4,15 @@ import SearchInput, { createFilter } from 'react-search-input'
 import Button from 'components/Button'
 import Input from 'components/Input'
 import Modal from 'components/Modal'
+import ScheduleModal from 'pageComponents/ScheduleModal'
 import styles from './customerlist.module.scss'
 
 const CustomerList = ({ customersList, setInputUpdated, count }) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [isOpen, setOpen] = useState(false)
+  const [isOpenPending, setOpenPending] = useState(false)
+  const [isScheduleOpen, setScheduleOpen] = useState(false)
+  const [customer, setCustomer] = useState({})
   const [input, setInput] = useState({
     CustomerName: '',
     SteetAddress: '',
@@ -49,6 +53,32 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
   const handleOnChange = ({ target: { name, value } }) => {
     setInput((prev) => ({ ...prev, [name]: value }))
     setError((prev) => ({ ...prev, [name]: '' }))
+  }
+
+  const handleSchedule = (cus) => {
+    setCustomer(cus)
+    setScheduleOpen(true)
+  }
+
+  const handleRemove = (id) => {
+    console.log('handle remove', id)
+    firestore
+      .collection('pendingList')
+      .doc(id)
+      .set({
+        pending: false,
+      })
+      .catch((e) => console.log(e))
+  }
+  const handlePending = (customerId) => {
+    firestore
+      .collection('pendingList')
+      .doc(customerId)
+      .set({ customerId, pending: true })
+      .then(() => {
+        console.info('add to pending')
+        setOpenPending(true)
+      })
   }
   const handleSubmit = () => {
     const customerRef = firestore.collection('customers').doc(input.id)
@@ -94,29 +124,61 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
               <th>City</th>
               <th>Phone</th>
               <th>Last Service Date</th>
-              <th>Edit</th>
+              <th className={styles.edit}>Edit</th>
+              <th className={styles.pending}>Pending</th>
+              <th className={styles.schedule}>Schedule</th>
             </tr>
           </thead>
           <tbody>
             {filteredCustomers &&
-              filteredCustomers.map((c) => (
-                <tr key={c.id}>
-                  <td>{c.CustomerName}</td>
-                  <td>{c.StreetAddress}</td>
-                  <td>{c.City}</td>
-                  <td>{c.Phone}</td>
-                  <td>{c.LastServiceDate || 'N/A'}</td>
-                  <td>
-                    <Button
-                      label="Edit"
-                      className={`btn-purple-fill ${styles.editButton}`}
-                      onClick={() => handleEdit(c.id)}
-                    />
-                  </td>
-                </tr>
-              ))}
+              filteredCustomers.map((c) => {
+                return (
+                  <tr key={c.id}>
+                    <td>{c.CustomerName}</td>
+                    <td>{c.StreetAddress}</td>
+                    <td>{c.City}</td>
+                    <td>{c.Phone}</td>
+                    <td>{c.LastServiceDate}</td>
+                    <td className={styles.edit}>
+                      <Button
+                        label="Edit"
+                        className={`btn-purple-outline ${styles.editButton}`}
+                        onClick={() => handleEdit(c.id)}
+                      />
+                    </td>
+                    <td className={styles.pending}>
+                      <Button
+                        label="Pending"
+                        className={`btn-pink-fill ${styles.editButton}`}
+                        onClick={() => handlePending(c.id)}
+                      />
+                    </td>
+                    <td className={styles.schedule}>
+                      <Button
+                        onClick={() => handleSchedule(c)}
+                        label="Schedule"
+                        className={`btn-purple-fill  ${styles.editButton}`}
+                      />
+                    </td>
+                  </tr>
+                )
+              })}
           </tbody>
         </table>
+        <ScheduleModal
+          isOpen={isScheduleOpen}
+          toggle={() => setScheduleOpen((prev) => !prev)}
+          size="md"
+          customer={customer}
+          handleRemove={handleRemove}
+        />
+        <Modal
+          isOpen={isOpenPending}
+          size="sm"
+          toggle={() => setOpenPending((prev) => !prev)}
+        >
+          <div>Pending Action Succesful</div>
+        </Modal>
         <Modal
           isOpen={isOpen}
           size="md"

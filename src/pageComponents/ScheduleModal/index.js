@@ -6,13 +6,23 @@ import Button from 'components/Button'
 import 'react-datepicker/dist/react-datepicker.css'
 import styles from './schedulemodal.module.scss'
 
-const ScheduleModal = ({ isOpen, toggle, customer, size, handleRemove }) => {
+const ScheduleModal = ({
+  isOpen,
+  toggle,
+  customer,
+  size,
+  handleRemove,
+  setInputUpdated,
+}) => {
   const [startDate, setStartDate] = useState(new Date())
   const getDayParams = () => {
     const startTime = new Date(startDate)
-    const endTime = new Date(startDate)
     startTime.setHours(0, 0, 0, 0)
-    endTime.setHours(23, 59, 59, 999)
+
+    const endTime = new Date(startDate)
+    endTime.setDate(startTime.getDate() + 1)
+    endTime.setHours(0, 0, 0, 0)
+
     const start = firebase.firestore.Timestamp.fromDate(startTime)
     const end = firebase.firestore.Timestamp.fromDate(endTime)
     return {
@@ -23,20 +33,19 @@ const ScheduleModal = ({ isOpen, toggle, customer, size, handleRemove }) => {
   const handleAppointmentTime = () => {
     return new Promise((resolve, reject) => {
       const { start, end } = getDayParams()
+
       const appointments = firestore.collection('appointments')
-      appointments.where('start', '>=', start)
-      appointments.where('end', '<=', end)
       appointments
-        .orderBy('start')
-        .limit(1)
+        .where('end', '>', start)
+        .where('end', '<', end)
+        .orderBy('end')
         .get()
         .then((querySnapshot) => {
           return querySnapshot.docs.map((d) => d.data())
         })
         .then((r) => {
-          console.info(r, 'result of handle appointment')
           if (r.length) {
-            return resolve(r[0].end.toDate())
+            return resolve(r[r.length - 1].end.toDate())
           }
           const newDate = new Date(startDate)
           newDate.setHours(8, 0, 0, 0)
@@ -48,39 +57,42 @@ const ScheduleModal = ({ isOpen, toggle, customer, size, handleRemove }) => {
     })
   }
 
-  const handleSubmit = () => {
-    handleAppointmentTime().then((sDate) => {
-      const endDate = new Date(sDate)
-      endDate.setMinutes(endDate.getMinutes() + 30)
-      firestore
-        .collection('appointments')
-        .add({
-          CustomerId: customer.id,
-          start: sDate,
-          end: endDate,
-          title: customer.StreetAddress,
-          Zipcode: customer.Zipcode || customer.ZipCode,
-        })
-        .then(() => {
-          handleRemove(customer.id)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+  const handleSubmit = async () => {
+    const startApp = await handleAppointmentTime()
+    const endApp = new Date(startApp)
+    endApp.setMinutes(endApp.getMinutes() + 30)
 
-      firestore
-        .collection('customers')
-        .doc(customer.id)
-        .update({
-          LastServiceDate: firebase.firestore.Timestamp.fromDate(sDate),
-        })
-        .then(() => {
-          console.info('Last Service Date Updated')
-        })
-        .catch((e) => {
-          console.error(e)
-        })
+    await firestore.collection('appointments').add({
+      CustomerId: customer.id,
+      start: startApp,
+      end: endApp,
+      title: customer.StreetAddress,
+      Zipcode: customer.Zipcode || customer.ZipCode,
     })
+
+    handleRemove(customer.id)
+
+    firestore
+      .collection('customers')
+      .doc(customer.id)
+      .update({
+        LastServiceDate: firebase.firestore.Timestamp.fromDate(startApp),
+      })
+      .then(() => {
+        toggle()
+        setInputUpdated({
+          ...customer,
+          LastServiceDate: endApp.toLocaleDateString('en-us', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          }),
+        })
+      })
+      .catch((e) => {
+        console.error(e)
+      })
   }
   return (
     <Modal isOpen={isOpen} toggle={toggle} size={size}>

@@ -38,7 +38,15 @@ const Dashboard = () => {
         const cus = res.map((d) => {
           let LastServiceDate = 'N/A'
           if (d.LastServiceDate && d.LastServiceDate.toDate) {
-            LastServiceDate = d.LastServiceDate.toDate().toString()
+            LastServiceDate = d.LastServiceDate.toDate().toLocaleDateString(
+              'en-us',
+              {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+              },
+            )
           }
           return { ...d, LastServiceDate }
         })

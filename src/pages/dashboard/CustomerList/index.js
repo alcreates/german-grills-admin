@@ -61,7 +61,6 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
   }
 
   const handleRemove = (id) => {
-    console.log('handle remove', id)
     firestore
       .collection('pendingList')
       .doc(id)
@@ -76,7 +75,6 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
       .doc(customerId)
       .set({ customerId, pending: true })
       .then(() => {
-        console.info('add to pending')
         setOpenPending(true)
       })
   }
@@ -171,13 +169,14 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
           size="md"
           customer={customer}
           handleRemove={handleRemove}
+          setInputUpdated={setInputUpdated}
         />
         <Modal
           isOpen={isOpenPending}
           size="sm"
           toggle={() => setOpenPending((prev) => !prev)}
         >
-          <div>Pending Action Succesful</div>
+          <div>Pending Action Succesfull</div>
         </Modal>
         <Modal
           isOpen={isOpen}

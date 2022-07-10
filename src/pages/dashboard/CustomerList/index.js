@@ -133,7 +133,7 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
                 return (
                   <tr key={c.id}>
                     <td>{c.CustomerName}</td>
-                    <td>{c.StreetAddress}</td>
+                    <td>{c.StreetAddress || c.ServiceAddress}</td>
                     <td>{c.City}</td>
                     <td>{c.Phone}</td>
                     <td>{c.LastServiceDate}</td>

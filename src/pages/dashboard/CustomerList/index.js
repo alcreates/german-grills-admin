@@ -135,8 +135,8 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
                     <td>{c.CustomerName}</td>
                     <td>{c.StreetAddress || c.ServiceAddress}</td>
                     <td>{c.City}</td>
-                    <td>{c.Phone}</td>
-                    <td>{c.LastServiceDate}</td>
+                    <td>{c.Phone || c['Phone ']}</td>
+                    <td>{c.LastServiceDate || c['LastServiceDate ']}</td>
                     <td className={styles.edit}>
                       <Button
                         label="Edit"

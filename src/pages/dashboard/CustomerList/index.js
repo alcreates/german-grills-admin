@@ -34,6 +34,7 @@ const CustomerList = ({ customersList, setInputUpdated, count }) => {
     'StreetAddress',
     'City',
     'Phone',
+    'Phone ',
   ]
 
   const searchTermUpdate = (term) => {

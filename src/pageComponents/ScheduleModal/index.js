@@ -61,14 +61,16 @@ const ScheduleModal = ({
     const startApp = await handleAppointmentTime()
     const endApp = new Date(startApp)
     endApp.setMinutes(endApp.getMinutes() + 30)
-
-    await firestore.collection('appointments').add({
+    const payload = {
       CustomerId: customer.id,
       start: startApp,
       end: endApp,
-      title: customer.StreetAddress,
+      title: customer.StreetAddress || customer.ServiceAddress,
       Zipcode: customer.Zipcode || customer.ZipCode,
-    })
+    }
+    console.info(customer, 'customer')
+    console.info(payload, 'payload')
+    await firestore.collection('appointments').add(payload)
 
     handleRemove(customer.id)
 
